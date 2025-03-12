@@ -1,0 +1,60 @@
+L0: Basic MongoDB Setup and Collection Setup
+1. Initialize MongoDB Database:
+To create the Order_DB database, run the following command in the Mongo Shell or Compass:
+
+
+use Order_DB
+2. Create orders Collection:
+MongoDB will automatically create the collection when the first document is inserted, so there's no need to explicitly create it.
+
+3. Insert Sample Data:
+Here are some sample data entries for the orders collection:
+
+
+db.orders.insertMany([
+  {
+    order_id: 1,
+    customer_name: "John Doe",
+    items: ["Laptop", "Mouse", "Keyboard"],
+    total_amount: 25000,
+    order_status: "pending"
+  },
+  {
+    order_id: 2,
+    customer_name: "Jane Smith",
+    items: ["Smartphone", "Headphones"],
+    total_amount: 12000,
+    order_status: "shipped"
+  },
+  {
+    order_id: 3,
+    customer_name: "Alice Brown",
+    items: ["Tablet", "Charger"],
+    total_amount: 8000,
+    order_status: "delivered"
+  },
+  {
+    order_id: 4,
+    customer_name: "Bob White",
+    items: ["Monitor", "Mousepad"],
+    total_amount: 3000,
+    order_status: "pending"
+  },
+  {
+    order_id: 5,
+    customer_name: "Charlie Green",
+    items: ["Camera", "Lens", "Tripod"],
+    total_amount: 18000,
+    order_status: "shipped"
+  }
+]);
+Basic Read Operations:
+4. Retrieve all orders:
+
+db.orders.find()
+5. Retrieve orders with a specific status (e.g., pending orders):
+
+db.orders.find({ order_status: "pending" })
+6. Retrieve orders with a total amount greater than Rs. 1000:
+
+db.orders.find({ total_amount: { $gt: 1000 } })

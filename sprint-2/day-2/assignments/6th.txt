@@ -1,0 +1,64 @@
+L0: Basic MongoDB Setup and Collection Setup
+1. Initialize MongoDB Database:
+To create the ToDoList_DB database, run the following command in the Mongo Shell or Compass:
+
+use ToDoList_DB
+2. Create tasks Collection:
+MongoDB will automatically create a collection when you insert your first document. For now, we don't need to explicitly create it.
+
+3. Insert Sample Data:
+Here are some sample data entries for the tasks collection:
+
+
+db.tasks.insertMany([
+  {
+    task_id: 1,
+    task_name: "Buy Groceries",
+    description: "Purchase vegetables, fruits, and dairy products.",
+    status: "pending",
+    due_date: new Date("2025-02-28")
+  },
+  {
+    task_id: 2,
+    task_name: "Complete Assignment",
+    description: "Finish the coding assignment for MongoDB.",
+    status: "in-progress",
+    due_date: new Date("2025-02-25")
+  },
+  {
+    task_id: 3,
+    task_name: "Attend Meeting",
+    description: "Attend the project meeting at 10 AM.",
+    status: "completed",
+    due_date: new Date("2025-02-23")
+  },
+  {
+    task_id: 4,
+    task_name: "Book Flight Tickets",
+    description: "Book flight tickets for the business trip.",
+    status: "pending",
+    due_date: new Date("2025-03-05")
+  },
+  {
+    task_id: 5,
+    task_name: "Clean House",
+    description: "Clean the living room and kitchen.",
+    status: "in-progress",
+    due_date: new Date("2025-02-26")
+  }
+]);
+Basic Read Operations:
+
+4. Retrieve all tasks:
+
+db.tasks.find()
+
+5. Retrieve tasks based on their status:
+
+db.tasks.find({ status: "pending" })
+
+6. Retrieve tasks that have a due date in the next 7 days:
+
+db.tasks.find({
+  due_date: { $gte: new Date(), $lt: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000) }
+})

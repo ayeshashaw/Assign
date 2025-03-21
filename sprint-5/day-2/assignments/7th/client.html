@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Typing Indicator</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { list-style-type: none; padding: 0; }
+        #messages li { padding: 8px; background: #f4f4f4; margin: 5px 0; }
+        #typingIndicator { font-style: italic; color: gray; }
+    </style>
+</head>
+<body>
+    <ul id="messages"></ul>
+    <p id="typingIndicator"></p>
+    <input id="messageInput" type="text" placeholder="Type a message..." autocomplete="off">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const socket = io();
+        const messageInput = document.getElementById("messageInput");
+        const typingIndicator = document.getElementById("typingIndicator");
+        let typingTimeout;
+
+        function sendMessage() {
+            if (messageInput.value.trim()) {
+                socket.emit("chat message", messageInput.value);
+                socket.emit("stop typing"); // Stop typing when sending message
+                messageInput.value = "";
+            }
+        }
+
+        messageInput.addEventListener("input", () => {
+            socket.emit("typing", "A user"); // Send typing event
+            clearTimeout(typingTimeout);
+            typingTimeout = setTimeout(() => {
+                socket.emit("stop typing");
+            }, 2000); // Stop typing after 2 seconds of inactivity
+        });
+
+        socket.on("chat message", (msg) => {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            document.getElementById("messages").appendChild(li);
+        });
+
+        socket.on("typing", (username) => {
+            typingIndicator.textContent = `${username} is typing...`;
+        });
+
+        socket.on("stop typing", () => {
+            typingIndicator.textContent = "";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+L0: Basic MongoDB Setup and Collection Setup
+1. Initialize MongoDB Database:
+To create the Library_DB database, run the following command in the Mongo Shell or Compass:
+
+use Library_DB
+2. Create books Collection:
+MongoDB will automatically create the collection when you insert the first document, so there's no need for explicit collection creation.
+
+3. Insert Sample Data:
+Here are some sample data entries for the books collection:
+
+
+db.books.insertMany([
+  {
+    book_id: 1,
+    title: "The Catcher in the Rye",
+    author: "J.D. Salinger",
+    genre: "fiction",
+    available: true
+  },
+  {
+    book_id: 2,
+    title: "Sapiens: A Brief History of Humankind",
+    author: "Yuval Noah Harari",
+    genre: "non-fiction",
+    available: false
+  },
+  {
+    book_id: 3,
+    title: "1984",
+    author: "George Orwell",
+    genre: "fiction",
+    available: true
+  },
+  {
+    book_id: 4,
+    title: "The Silent Patient",
+    author: "Alex Michaelides",
+    genre: "thriller",
+    available: true
+  },
+  {
+    book_id: 5,
+    title: "Educated",
+    author: "Tara Westover",
+    genre: "non-fiction",
+    available: false
+  }
+]);
+Basic Read Operations:
+4. Retrieve all books:
+
+db.books.find()
+5. Retrieve books based on their genre (e.g., all fiction books):
+
+db.books.find({ genre: "fiction" })
+6. Retrieve only available books:
+
+db.books.find({ available: true })

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group Chat</title>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #messages { list-style-type: none; padding: 0; }
+        #messages li { padding: 8px; background: #f4f4f4; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h2>Group Chat</h2>
+    <input id="username" type="text" placeholder="Enter your name" />
+    <input id="room" type="text" placeholder="Enter room name" />
+    <button onclick="joinRoom()">Join Room</button>
+
+    <h3>Chat Room</h3>
+    <ul id="messages"></ul>
+    <input id="messageInput" type="text" placeholder="Type a message..." autocomplete="off">
+    <button onclick="sendMessage()">Send</button>
+
+    <h3>Private Message</h3>
+    <input id="recipientId" type="text" placeholder="Recipient Socket ID" />
+    <input id="privateMessage" type="text" placeholder="Type private message..." />
+    <button onclick="sendPrivateMessage()">Send Private</button>
+
+    <script>
+        const socket = io();
+        let username, room;
+
+        function joinRoom() {
+            username = document.getElementById("username").value;
+            room = document.getElementById("room").value;
+
+            if (username && room) {
+                socket.emit("join room", { username, room });
+            }
+        }
+
+        function sendMessage() {
+            const msg = document.getElementById("messageInput").value;
+            if (msg) {
+                socket.emit("chat message", msg);
+                document.getElementById("messageInput").value = "";
+            }
+        }
+
+        function sendPrivateMessage() {
+            const recipientId = document.getElementById("recipientId").value;
+            const message = document.getElementById("privateMessage").value;
+            if (recipientId && message) {
+                socket.emit("private message", { recipientId, message });
+                document.getElementById("privateMessage").value = "";
+            }
+        }
+
+        socket.on("message", (msg) => {
+            const li = document.createElement("li");
+            li.textContent = msg;
+            document.getElementById("messages").appendChild(li);
+        });
+
+        socket.on("private message", ({ sender, message }) => {
+            const li = document.createElement("li");
+            li.textContent = `[Private] ${sender}: ${message}`;
+            li.style.color = "red";
+            document.getElementById("messages").appendChild(li);
+        });
+    </script>
+</body>
+</html>

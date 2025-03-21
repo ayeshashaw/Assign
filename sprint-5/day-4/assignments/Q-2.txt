@@ -1,0 +1,141 @@
+Que:Decision: Horizontal vs. Vertical Scaling
+
+Ans:Chosen Strategy: Horizontal Scaling
+
+Justification:
+
+A).Anticipated Load & Growth: The application is expected to handle an increasing number of users over time, making horizontal scaling a better option for distributing load across multiple servers.
+
+B).Database Handling: MongoDB natively supports horizontal scaling using sharding, ensuring improved performance as data volume grows.
+
+C).Cost Considerations: While vertical scaling (upgrading server hardware) can be costly and has limits, horizontal scaling allows for adding more servers gradually as demand increases.
+
+D).Performance: Spreading requests across multiple instances improves response times and availability, reducing bottlenecks in the system.
+
+Que:Data Partitioning and Replication
+
+Ans:Decision: Implement Sharding and Replication
+
+Justification:
+
+A).Sharding (Partitioning):
+
+Data will be distributed across multiple shards based on a logical key, such as user ID or geographic region, ensuring load balancing.
+
+Prevents single-server bottlenecks and enables efficient query distribution.
+
+B).Replication:
+
+Each shard will have multiple replica sets to ensure high availability and fault tolerance.
+
+In case of failure, replicas provide automatic failover, reducing downtime.
+
+C).Benefits:
+
+Faster query performance due to distributed workload.
+
+Higher availability and resilience against failures.
+
+Supports seamless scaling without impacting user experience.
+
+
+Que:Caching Strategy with Redis
+
+Ans:Decision: Implement Redis with TTL-based Expiration
+
+Justification:
+
+A).Purpose of Caching:
+
+Reduces database load by storing frequently accessed data in memory.
+
+Enhances response time for users by serving cached content quickly.
+
+B).Data to Cache:
+
+User sessions and authentication tokens.
+
+Frequently requested API responses (e.g., user profiles, product listings).
+
+Computed query results for expensive database operations.
+
+C).Cache Expiration & Invalidation:
+
+Time-to-live (TTL) policies ensure stale data is removed automatically.
+
+Cache invalidation mechanisms prevent serving outdated data.
+
+D).Impact:
+
+Reduces database queries, improving scalability.
+
+Enhances system efficiency by decreasing latency.
+
+Que:Message Queue Integration
+
+Ans:Decision: Use RabbitMQ for Asynchronous Processing
+
+Justification:
+
+A).Why RabbitMQ?
+
+Reliable, high-performance messaging system with support for message durability.
+
+Supports complex routing patterns for different services.
+
+B).Types of Messages to Queue:
+
+User notifications (email/SMS alerts).
+
+Background job processing (e.g., generating reports, data syncing).
+
+Logging and analytics events for performance monitoring.
+
+C).Benefits:
+
+Improves system responsiveness by handling long-running tasks asynchronously.
+
+Enhances fault tolerance by ensuring messages persist until processed.
+
+Reduces API latency, leading to a smoother user experience.
+
+Que:Monitoring Strategy
+
+Ans:Decision: Use Prometheus and Grafana for Monitoring
+
+Justification:
+
+A).Metrics to Track:
+
+API response times and request rates.
+
+Database query performance and slow queries.
+
+Server health (CPU, memory, and network usage).
+
+Error rates and failed API requests.
+
+B).Why Prometheus?
+
+Efficient time-series database for monitoring.
+
+Provides alerting capabilities for proactive issue resolution.
+
+C).Why Grafana?
+
+User-friendly visualization for tracking trends and performance insights.
+
+Enables real-time dashboarding for operational visibility.
+
+D).Impact:
+
+Proactive issue detection reduces downtime.
+
+Data-driven insights allow for performance optimization.
+
+Alerts enable quick responses to system failures.
+
+
+Conclusion:
+By implementing horizontal scaling, sharding, and replication, the system can efficiently handle increased loads. Redis caching reduces database strain and improves response times, while RabbitMQ ensures smooth asynchronous processing. Prometheus and Grafana provide essential monitoring for maintaining system reliability. These strategies create a robust, scalable, and high-performance backend infrastructure.
+

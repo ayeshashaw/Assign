@@ -1,0 +1,11 @@
+
+{
+    "courses": [
+      { "id": 1, "name": "JavaScript Basics", "available": true },
+      { "id": 2, "name": "Node.js Fundamentals", "available": false },
+      { "id": 3, "name": "React Mastery", "available": true }
+    ]
+  }
+  
+  
+  

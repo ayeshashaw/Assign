@@ -1,0 +1,160 @@
+Que:Microservices Migration
+
+Ans:Decision: Transition to Microservices Architecture
+
+Justification:
+
+A).Scalability & Maintainability:
+
+A microservices approach allows independent scaling of different services, improving resource efficiency.
+
+Each service can be developed, deployed, and maintained separately, reducing dependencies and making updates easier.
+
+B).Service Splitting:
+
+User Management Service: Handles authentication and user profiles.
+
+Product Service: Manages product listings, updates, and retrieval.
+
+Order & Payment Service: Processes transactions and orders.
+
+Notification Service: Handles emails, SMS, and in-app alerts asynchronously.
+
+C).Pros & Cons:
+
+Pros: Improved fault isolation, modular development, easier updates.
+
+Cons: Higher complexity, increased inter-service communication.
+
+
+Que:Advanced Security Measures
+
+Ans:Decision: Implement JWT for Authentication & OAuth for Authorization
+
+Justification:
+
+A).JWT (JSON Web Token):
+
+Ensures stateless authentication, reducing server load.
+
+Enhances security with token expiration and refresh mechanisms.
+
+B).OAuth 2.0:
+
+Provides secure authorization for third-party integrations (e.g., social logins, API access).
+
+C).Additional Security Measures:
+
+Input Validation: Prevents SQL/NoSQL injections and cross-site scripting (XSS).
+
+Rate Limiting: Mitigates brute force attacks and API abuse.
+
+Secure Headers (Helmet.js): Adds HTTP security headers to prevent common vulnerabilities.
+
+Data Encryption: Ensures sensitive data (e.g., passwords, payment details) is encrypted using AES or bcrypt.
+
+Que: Cloud Deployment Strategy
+
+Ans:Decision: Deploy on AWS
+
+Justification:
+
+A).Cost & Performance:
+
+AWS offers pay-as-you-go pricing with auto-scaling, optimizing costs based on traffic.
+
+B).Services Used:
+
+EC2 for hosting backend services.
+
+RDS (MongoDB on AWS DocumentDB) for managed database services.
+
+S3 for storing media files and static assets.
+
+Lambda for executing serverless functions (e.g., background jobs, image processing).
+
+CloudFront for global content distribution.
+
+C).Availability & Reliability:
+
+AWS’s multi-region deployment ensures minimal downtime and faster response times.
+
+Que: Scaling and High Availability
+
+Ans: Decision: Implement Auto Scaling with Load Balancing
+
+Justification:
+
+A).Why Auto Scaling?
+
+Automatically adjusts server instances based on traffic demand, reducing operational costs.
+
+Ensures high availability by distributing requests across multiple instances.
+
+B).Load Balancing Strategy:
+
+Application Load Balancer (ALB) for intelligent request routing.
+
+Global Load Balancing for multi-region deployments to reduce latency.
+
+C).Impact:
+
+Ensures optimal resource utilization.
+
+Prevents downtime during traffic spikes.
+
+Que: Logging and Monitoring
+
+Ans: Decision: Use Winston for Logging & Prometheus/Grafana for Monitoring
+
+Justification:
+
+A).Why Winston?
+
+Supports structured logging for debugging and auditing.
+
+Logs are stored in centralized storage (e.g., AWS CloudWatch, ELK Stack).
+
+B).Types of Logs Tracked:
+
+Error Logs: Captures application crashes and API failures.
+
+Access Logs: Monitors API requests for security auditing.
+
+Performance Logs: Tracks query execution times and server health.
+
+C).Why Prometheus & Grafana?
+
+Prometheus collects real-time metrics (CPU usage, memory, API latency).
+
+Grafana provides visualization dashboards for monitoring system health.
+
+Alerting Mechanism: Sends notifications for abnormal system behavior.
+
+Que: Content Delivery Network (CDN) Strategy
+
+Ans: Decision: Use AWS CloudFront for Static Asset Distribution
+
+Justification:
+
+A).Why CloudFront?
+
+Global edge locations reduce latency for users worldwide.
+
+Integrated security features (DDoS protection, SSL/TLS encryption).
+
+B).Assets to Cache:
+
+Static content (images, CSS, JavaScript files).
+
+API responses for frequently accessed endpoints (e.g., product details, user profiles).
+
+C).Benefits:
+
+Enhances page load speeds and user experience.
+
+Reduces backend server load by offloading requests to edge servers.
+
+
+Conclusion:
+By migrating to microservices, implementing JWT and OAuth for security, and leveraging AWS for cloud deployment, the backend ensures scalability, security, and efficiency. Auto scaling and load balancing maintain high availability, while Winston logging and Prometheus monitoring provide insights for performance optimization. The AWS CloudFront CDN enhances global content distribution, ensuring a fast and resilient application architecture.
